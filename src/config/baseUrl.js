@@ -1,0 +1,1 @@
+export const baseUrl = 'https://my-json-server.typicode.com/sespinala/react-course-2020-psl-data/';
