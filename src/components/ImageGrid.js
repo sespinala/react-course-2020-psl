@@ -2,9 +2,8 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import { fetchImages } from '../redux/actionCreators';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import ImageItem from './ImageItem';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,42 +15,34 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    width: 500,
-    height: 450,
+    width: 'auto',
+    height: 'auto',
   }
 }));
 
 const ImageGrid = (props) => {
   const classes = useStyles();
 
-  props.fetchImages();
+  const imageData = useSelector((state) => state && state.imagesList.images);
 
-  const tileData = []/*useSelector((state) => state && state.images)*/;
-
+  if (props.isLoading) return (<CircularProgress></CircularProgress>)
   return (
     <div className={classes.root}>
       <GridList 
         cellHeight={180} 
         className={classes.gridList}>
-          
-        <GridListTile 
-          key="Subheader" 
-          cols={2} 
-          style={{ height: 'auto' }}>
-          <ListSubheader component="div">December</ListSubheader>
-        </GridListTile>
 
-        {tileData.map((tile) => (
-          <ImageItem />
+        {imageData.map((image) => (
+          <ImageItem key={image.id} {... image}/>
         ))}
       </GridList>
     </div>
   );
 };
 
-const mapStateToProps = null
-const mapDispatchToProps = dispatch => ({
-  fetchImages: () => dispatch(fetchImages)
+const mapStateToProps = state => ({
+  images: state.imagesList.images,
+  isLoading: state.imagesList.isLoading,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ImageGrid);
+export default connect(mapStateToProps)(ImageGrid);

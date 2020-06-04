@@ -3,16 +3,15 @@ import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import './App.scss';
 import Header from './components/Header';
-import SearchBar from './components/SearchBar';
-import ImageGrid from './components/ImageGrid';
+
+import Dashboard from './components/Dashboard';
 
 function App() {
   return (
     <Provider store={store}>
       <div>
         <Header />
-        <SearchBar />
-        <ImageGrid />
+        <Dashboard />
       </div>
     </Provider>
   );

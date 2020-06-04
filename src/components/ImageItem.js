@@ -4,6 +4,8 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
+import { selectImage, unSelectImage } from '../redux/actionCreators'
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -11,25 +13,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ImageItem = (tile) => {
+const ImageItem = props => {
   const classes = useStyles();
 
+  const { id, image, name, price, onSelect } = props;
+
+  console.log(props);
+
   return (
-    <GridListTile key={tile.img}>
-      <img src={tile.img} alt={tile.title} />
+    <GridListTile key={id}>
+      <img src={image} alt={image} />
+
       <GridListTileBar
-        title={tile.title}
+        title={price}
         subtitle={
-          <span>by: {tile.author}</span>
+          <span>By: {name}</span>
         }
         actionIcon={
-          <IconButton className={classes.icon}>
+          <IconButton className={classes.icon}
+            onClick={() => { onSelect(image) } } >
             <InfoIcon />
           </IconButton>
         }
       />
+
     </GridListTile>
   );
 };
 
-export default ImageItem;
+const mapDispatchToProps = { onSelect: selectImage, onUnselect: unSelectImage }
+const mapStateToProps = state => ({
+  selectedImages: state.imagesList.selectedImages
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageItem);

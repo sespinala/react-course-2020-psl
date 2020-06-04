@@ -29,6 +29,15 @@ export const imagesReducer = (state = DEFAULT_STATE, action) => {
         isLoading: false, 
         errMess: action.payload 
       }
+    
+    case actionTypes.SELECT_IMAGE:
+      return { ...state, selectedImages: [...state.selectedImages, action.image] }
+  
+    case actionTypes.UNSELECT_IMAGE:
+      return {
+        ...state,
+        selectedImages: [...state.selectedImages.filter(p => p !== action.image)]
+      }
 
     default:
       return state

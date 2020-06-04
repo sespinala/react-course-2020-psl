@@ -27,3 +27,13 @@ export const addImages = (images) => ({
   type: actionTypes.ADD_IMAGES,
   payload: images
 })
+
+export const selectImage = image => ({
+  type: actionTypes.SELECT_IMAGE,
+  image
+})
+
+export const unSelectImage = image => ({
+  type: actionTypes.UNSELECT_IMAGE,
+  image
+})
