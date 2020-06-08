@@ -1,8 +1,11 @@
 import * as actionTypes from './actionTypes'
+var _ = require('lodash');
+
 const DEFAULT_STATE = { 
   isLoading: false, 
   errMess: null, 
-  images: []
+  images: [],
+  selectedImages: []
 }
 
 export const imagesReducer = (state = DEFAULT_STATE, action) => {
@@ -36,7 +39,7 @@ export const imagesReducer = (state = DEFAULT_STATE, action) => {
     case actionTypes.UNSELECT_IMAGE:
       return {
         ...state,
-        selectedImages: [...state.selectedImages.filter(p => p !== action.image)]
+        selectedImages: [...state.selectedImages.filter(img => { return !_.isEqual(img, action.image) })]
       }
 
     default:

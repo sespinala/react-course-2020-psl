@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -23,18 +23,17 @@ const useStyles = makeStyles((theme) => ({
 const ImageGrid = (props) => {
   const classes = useStyles();
 
-  const imageData = useSelector((state) => state && state.imagesList.images);
-
   if (props.isLoading) return (<CircularProgress></CircularProgress>)
   return (
     <div className={classes.root}>
       <GridList 
         cellHeight={180} 
         className={classes.gridList}>
-
-        {imageData.map((image) => (
-          <ImageItem key={image.id} {... image}/>
-        ))}
+        {
+          props.images.map(image => (
+            <ImageItem key={image.id} {... image} />
+          ))
+        }
       </GridList>
     </div>
   );
@@ -43,6 +42,6 @@ const ImageGrid = (props) => {
 const mapStateToProps = state => ({
   images: state.imagesList.images,
   isLoading: state.imagesList.isLoading,
-})
+});
 
 export default connect(mapStateToProps)(ImageGrid);

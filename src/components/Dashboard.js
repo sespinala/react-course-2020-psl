@@ -5,18 +5,20 @@ import { fetchImages } from '../redux/actionCreators';
 import { connect } from 'react-redux';
 
 const Dashboard = (props) => {
+
   props.fetchImages();
+
   return (
     <div>
-      <SearchBar />
+      {/* <SearchBar /> */}
       <ImageGrid />
     </div>
   );
 };
 
-const mapStateToProps = null
 const mapDispatchToProps = dispatch => ({
   fetchImages: () => dispatch(fetchImages)
-})
+});
+const mapStateToProps = null;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

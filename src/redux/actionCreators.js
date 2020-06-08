@@ -6,11 +6,12 @@ export const fetchImages = (dispatch) => {
 
   return fetch(baseUrl + 'images')
     .then(response => response.json())
-    .then(images => {
+    .then(images => dispatch(addImages(images)))
+    /* .then(images => {
       setTimeout(() => {
         dispatch(addImages(images))
       }, 2000)
-    })
+    }) */
     .catch(error => dispatch(imagesFailed(error.message)));
 }
 
